@@ -18,7 +18,6 @@
       --white:  #F0EEEC;
       --dim:    #888880;
       --bg:     #050505;
-      --bg2:    #0a0a0c;
     }
 
     html { scroll-behavior: smooth; }
@@ -69,11 +68,12 @@
       flex-direction: column;
     }
 
+    /* ── NAV ── */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
       z-index: 100;
-      padding: 2rem 4rem;
+      padding: 1.8rem 4rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -86,7 +86,6 @@
       letter-spacing: 0.35em;
       color: var(--chrome);
       text-decoration: none;
-      opacity: 0.9;
     }
     .nav-links {
       display: flex;
@@ -104,6 +103,7 @@
     }
     .nav-links a:hover { color: var(--white); }
 
+    /* ── HERO ── */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -111,7 +111,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 8rem 2rem 4rem;
+      padding: 7rem 1.5rem 4rem;
       position: relative;
     }
     .hero::before {
@@ -119,33 +119,33 @@
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -55%);
-      width: 520px;
-      height: 520px;
+      width: min(520px, 90vw);
+      height: min(520px, 90vw);
       border-radius: 50%;
       background: radial-gradient(circle, rgba(139,0,0,0.18) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero-logo {
-      width: clamp(200px, 32vw, 360px);
+      width: clamp(160px, 48vw, 360px);
       height: auto;
-      margin-bottom: 3.5rem;
+      margin-bottom: 2.8rem;
       opacity: 0;
       animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
       filter: drop-shadow(0 0 40px rgba(139,0,0,0.35)) drop-shadow(0 0 80px rgba(139,0,0,0.15));
     }
     .hero-eyebrow {
       font-family: 'Cinzel', serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.5em;
+      font-size: clamp(0.5rem, 1.8vw, 0.6rem);
+      letter-spacing: 0.4em;
       color: var(--red-hi);
       text-transform: uppercase;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.2rem;
       opacity: 0;
       animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) 0.8s forwards;
     }
     .hero-title {
       font-family: 'Cinzel', serif;
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
+      font-size: clamp(2.4rem, 10vw, 5.5rem);
       font-weight: 900;
       letter-spacing: 0.22em;
       color: var(--white);
@@ -156,29 +156,30 @@
     }
     .hero-subtitle {
       font-family: 'Cinzel', serif;
-      font-size: clamp(0.55rem, 1.2vw, 0.72rem);
-      letter-spacing: 0.45em;
+      font-size: clamp(0.48rem, 2vw, 0.72rem);
+      letter-spacing: 0.35em;
       color: var(--dim);
       text-transform: uppercase;
-      margin-bottom: 4rem;
+      margin-bottom: 3.5rem;
       opacity: 0;
       animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) 1.2s forwards;
     }
     .hero-rule {
       width: 1px;
-      height: 80px;
+      height: 60px;
       background: linear-gradient(to bottom, transparent, var(--red-hi), transparent);
       margin: 0 auto;
       opacity: 0;
       animation: fadeIn 1s ease 1.8s forwards;
     }
 
+    /* ── DIVIDER ── */
     .section-divider {
       display: flex;
       align-items: center;
-      gap: 2rem;
-      padding: 0 4rem;
-      margin: 6rem auto;
+      gap: 1.5rem;
+      padding: 0 2rem;
+      margin: 5rem auto;
       max-width: 900px;
       width: 100%;
     }
@@ -197,20 +198,20 @@
       white-space: nowrap;
     }
 
+    /* ── PILLARS ── */
     .pillars {
-      padding: 2rem 4rem 8rem;
+      padding: 0 2rem 6rem;
       max-width: 1100px;
       margin: 0 auto;
       width: 100%;
     }
     .pillars-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       border: 0.5px solid rgba(139,0,0,0.2);
     }
     .pillar {
-      padding: 3.5rem 2.5rem;
+      padding: 3rem 2rem;
       border-right: 0.5px solid rgba(139,0,0,0.15);
       position: relative;
       overflow: hidden;
@@ -233,37 +234,39 @@
       font-size: 0.55rem;
       letter-spacing: 0.35em;
       color: var(--red-hi);
-      margin-bottom: 1.8rem;
+      margin-bottom: 1.5rem;
       display: block;
     }
     .pillar-title {
       font-family: 'Cinzel', serif;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 600;
-      letter-spacing: 0.2em;
+      letter-spacing: 0.18em;
       color: var(--chrome);
-      margin-bottom: 1.2rem;
+      margin-bottom: 1rem;
       text-transform: uppercase;
     }
     .pillar-text {
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       font-weight: 300;
       line-height: 1.9;
       color: var(--dim);
       font-style: italic;
     }
 
+    /* ── STATEMENT ── */
     .statement {
-      padding: 8rem 4rem;
+      padding: 6rem 2rem;
       text-align: center;
       max-width: 800px;
       margin: 0 auto;
+      width: 100%;
     }
     .statement-quote {
-      font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+      font-size: clamp(1.2rem, 4.5vw, 2.2rem);
       font-weight: 300;
       font-style: italic;
-      line-height: 1.7;
+      line-height: 1.8;
       color: var(--white);
       opacity: 0.85;
       letter-spacing: 0.04em;
@@ -282,9 +285,9 @@
 
     /* ── CONTACT ── */
     .contact {
-      padding: 2rem 4rem 8rem;
+      padding: 2rem 2rem 7rem;
       text-align: center;
-      max-width: 600px;
+      max-width: 560px;
       margin: 0 auto;
       width: 100%;
     }
@@ -299,34 +302,82 @@
     }
     .contact-email {
       font-family: 'Cinzel', serif;
-      font-size: clamp(0.7rem, 1.6vw, 0.95rem);
-      letter-spacing: 0.18em;
+      font-size: clamp(0.65rem, 2.5vw, 0.92rem);
+      letter-spacing: 0.15em;
       color: var(--chrome);
       text-decoration: none;
       border-bottom: 0.5px solid rgba(139,0,0,0.4);
-      padding-bottom: 0.5rem;
+      padding-bottom: 0.4rem;
       transition: color 0.3s, border-color 0.3s;
       display: inline-block;
+      word-break: break-all;
     }
     .contact-email:hover {
       color: var(--white);
       border-color: var(--red-hi);
     }
     .contact-note {
-      margin-top: 2.2rem;
+      margin-top: 1.8rem;
       font-size: 0.88rem;
       font-style: italic;
       color: var(--dim);
       opacity: 0.55;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.05em;
     }
 
+    /* ── CONNECT BUTTON ── */
+    .contact-divider-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, transparent, rgba(139,0,0,0.4), transparent);
+      margin: 2.5rem auto;
+    }
+    .connect-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.35em;
+      color: var(--dim);
+      text-decoration: none;
+      text-transform: uppercase;
+      border: 0.5px solid rgba(139,0,0,0.35);
+      padding: 1rem 2.2rem;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.4s, border-color 0.4s;
+    }
+    .connect-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(139,0,0,0.06);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .connect-btn:hover { color: var(--white); border-color: var(--red-hi); }
+    .connect-btn:hover::before { transform: scaleX(1); }
+    .connect-btn span { position: relative; z-index: 1; }
+    .connect-arrow {
+      position: relative;
+      z-index: 1;
+      font-size: 0.7rem;
+      color: var(--red-hi);
+      transition: transform 0.3s;
+    }
+    .connect-btn:hover .connect-arrow { transform: translateX(4px); }
+
+    /* ── FOOTER ── */
     footer {
       border-top: 0.5px solid rgba(139,0,0,0.2);
-      padding: 3rem 4rem;
+      padding: 2.5rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 0.8rem;
     }
     .footer-mark {
       font-family: 'Cinzel', serif;
@@ -336,11 +387,12 @@
     }
     .footer-copy {
       font-family: 'Cinzel', serif;
-      font-size: 0.55rem;
-      letter-spacing: 0.2em;
+      font-size: 0.5rem;
+      letter-spacing: 0.15em;
       color: rgba(136,136,128,0.4);
     }
 
+    /* ── ANIMATIONS ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(28px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -349,26 +401,58 @@
       from { opacity: 0; }
       to   { opacity: 1; }
     }
-
     .reveal {
       opacity: 0;
       transform: translateY(24px);
       transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
     }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── PORTRAIT MOBILE ── */
+    @media (max-width: 600px) {
+      nav { padding: 1.2rem 1.2rem; }
+      .nav-links { display: none; }
+
+      .hero { padding: 6rem 1.2rem 3rem; }
+      .hero-logo { width: clamp(150px, 60vw, 240px); margin-bottom: 2rem; }
+
+      .section-divider { padding: 0 1.2rem; margin: 3.5rem auto; }
+
+      .pillars { padding: 0 1.2rem 5rem; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .pillar {
+        border-right: none;
+        border-bottom: 0.5px solid rgba(139,0,0,0.15);
+        padding: 2.2rem 1.5rem;
+      }
+      .pillar:last-child { border-bottom: none; }
+
+      .statement { padding: 4rem 1.2rem; }
+
+      .contact { padding: 1.5rem 1.2rem 5rem; }
+      .connect-btn { padding: 0.9rem 1.5rem; font-size: 0.55rem; letter-spacing: 0.25em; }
+
+      footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 2rem 1.2rem;
+        gap: 0.6rem;
+      }
+      .footer-copy { font-size: 0.45rem; }
     }
 
-    @media (max-width: 768px) {
-      nav { padding: 1.5rem 1.5rem; }
-      .nav-links { display: none; }
-      .pillars { padding: 2rem 1.5rem 6rem; }
+    /* ── TABLET PORTRAIT ── */
+    @media (min-width: 601px) and (max-width: 900px) {
+      nav { padding: 1.5rem 2rem; }
+      .nav-links { gap: 1.8rem; }
       .pillars-grid { grid-template-columns: 1fr; }
-      .pillar { border-right: none; border-bottom: 0.5px solid rgba(139,0,0,0.15); }
-      .statement { padding: 5rem 1.5rem; }
-      .contact { padding: 2rem 1.5rem 6rem; }
-      footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem 1.5rem; }
+      .pillar {
+        border-right: none;
+        border-bottom: 0.5px solid rgba(139,0,0,0.15);
+      }
+      .pillar:last-child { border-bottom: none; }
+      .contact { max-width: 100%; }
     }
   </style>
 </head>
@@ -399,9 +483,7 @@
       <div class="hero-rule"></div>
     </section>
 
-    <div class="section-divider reveal">
-      <span>The Structure</span>
-    </div>
+    <div class="section-divider reveal"><span>The Structure</span></div>
 
     <section class="pillars" id="pillars">
       <div class="pillars-grid">
@@ -423,9 +505,7 @@
       </div>
     </section>
 
-    <div class="section-divider reveal">
-      <span>The Mission</span>
-    </div>
+    <div class="section-divider reveal"><span>The Mission</span></div>
 
     <section class="statement" id="statement">
       <p class="statement-quote reveal">
@@ -436,18 +516,21 @@
       <p class="statement-attr reveal" style="transition-delay:0.2s">T5S Holdings · Private</p>
     </section>
 
-    <div class="section-divider reveal" id="contact">
-      <span>Contact</span>
-    </div>
+    <div class="section-divider reveal" id="contact"><span>Contact</span></div>
 
     <section class="contact">
       <span class="contact-label reveal">Private Inquiries</span>
       <a class="contact-email reveal" href="mailto:contact@wearet5s.com" style="transition-delay:0.1s">
         contact@wearet5s.com
       </a>
-      <p class="contact-note reveal" style="transition-delay:0.2s">
-        Private correspondence only.
-      </p>
+      <p class="contact-note reveal" style="transition-delay:0.2s">Private correspondence only.</p>
+
+      <div class="contact-divider-line reveal" style="transition-delay:0.3s"></div>
+
+      <a class="connect-btn reveal" href="https://contact.wearelvo.com" target="_blank" style="transition-delay:0.4s">
+        <span>Connect with us</span>
+        <span class="connect-arrow">→</span>
+      </a>
     </section>
 
     <footer>
@@ -461,12 +544,9 @@
     const reveals = document.querySelectorAll('.reveal');
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          obs.unobserve(e.target);
-        }
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.12 });
     reveals.forEach(r => obs.observe(r));
   </script>
 
