@@ -3,14 +3,13 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>T5S Holdings</title>
+  <title>LVO Holdings</title>
   <link rel="icon" type="image/png" href="assets/llogo nb.png">
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
     :root {
       --red:    #8B0000;
       --red-hi: #CC2020;
@@ -19,9 +18,7 @@
       --dim:    #888880;
       --bg:     #050505;
     }
-
     html { scroll-behavior: smooth; }
-
     body {
       background: var(--bg);
       color: var(--white);
@@ -29,7 +26,6 @@
       overflow-x: hidden;
       cursor: default;
     }
-
     body::before {
       content: '';
       position: fixed;
@@ -39,7 +35,6 @@
       pointer-events: none;
       z-index: 9999;
     }
-
     .video-bg {
       position: fixed;
       inset: 0;
@@ -47,8 +42,7 @@
       overflow: hidden;
     }
     .video-bg video {
-      width: 100%;
-      height: 100%;
+      width: 100%; height: 100%;
       object-fit: cover;
       opacity: 0.13;
       filter: saturate(0.4) contrast(1.2);
@@ -59,7 +53,6 @@
       inset: 0;
       background: radial-gradient(ellipse at center, transparent 0%, var(--bg) 75%);
     }
-
     .page {
       position: relative;
       z-index: 1;
@@ -68,7 +61,7 @@
       flex-direction: column;
     }
 
-    /* ── NAV ── */
+    /* NAV */
     nav {
       position: fixed;
       top: 0; left: 0; right: 0;
@@ -87,11 +80,7 @@
       color: var(--chrome);
       text-decoration: none;
     }
-    .nav-links {
-      display: flex;
-      gap: 3rem;
-      list-style: none;
-    }
+    .nav-links { display: flex; gap: 3rem; list-style: none; }
     .nav-links a {
       font-family: 'Cinzel', serif;
       font-size: 0.62rem;
@@ -103,7 +92,7 @@
     }
     .nav-links a:hover { color: var(--white); }
 
-    /* ── HERO ── */
+    /* HERO */
     .hero {
       min-height: 100vh;
       display: flex;
@@ -173,7 +162,7 @@
       animation: fadeIn 1s ease 1.8s forwards;
     }
 
-    /* ── DIVIDER ── */
+    /* DIVIDER */
     .section-divider {
       display: flex;
       align-items: center;
@@ -198,7 +187,7 @@
       white-space: nowrap;
     }
 
-    /* ── PILLARS ── */
+    /* PILLARS */
     .pillars {
       padding: 0 2rem 6rem;
       max-width: 1100px;
@@ -211,11 +200,13 @@
       border: 0.5px solid rgba(139,0,0,0.2);
     }
     .pillar {
-      padding: 3rem 2rem;
+      padding: 3rem 2rem 2.5rem;
       border-right: 0.5px solid rgba(139,0,0,0.15);
       position: relative;
       overflow: hidden;
       transition: background 0.4s;
+      display: flex;
+      flex-direction: column;
     }
     .pillar:last-child { border-right: none; }
     .pillar::before {
@@ -252,9 +243,50 @@
       line-height: 1.9;
       color: var(--dim);
       font-style: italic;
+      flex: 1;
+      margin-bottom: 2rem;
     }
 
-    /* ── STATEMENT ── */
+    /* PILLAR BUTTON */
+    .pillar-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: 'Cinzel', serif;
+      font-size: 0.52rem;
+      letter-spacing: 0.28em;
+      color: var(--dim);
+      text-decoration: none;
+      text-transform: uppercase;
+      border: 0.5px solid rgba(139,0,0,0.3);
+      padding: 0.75rem 1.2rem;
+      position: relative;
+      overflow: hidden;
+      transition: color 0.35s, border-color 0.35s;
+      align-self: flex-start;
+    }
+    .pillar-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(139,0,0,0.07);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
+    }
+    .pillar-btn:hover { color: var(--white); border-color: var(--red-hi); }
+    .pillar-btn:hover::before { transform: scaleX(1); }
+    .pillar-btn span { position: relative; z-index: 1; }
+    .pillar-btn-arrow {
+      position: relative;
+      z-index: 1;
+      color: var(--red-hi);
+      transition: transform 0.3s;
+      font-size: 0.6rem;
+    }
+    .pillar-btn:hover .pillar-btn-arrow { transform: translateX(3px); }
+
+    /* STATEMENT */
     .statement {
       padding: 6rem 2rem;
       text-align: center;
@@ -271,10 +303,7 @@
       opacity: 0.85;
       letter-spacing: 0.04em;
     }
-    .statement-quote em {
-      color: var(--chrome);
-      font-style: normal;
-    }
+    .statement-quote em { color: var(--chrome); font-style: normal; }
     .statement-attr {
       margin-top: 2.5rem;
       font-family: 'Cinzel', serif;
@@ -283,7 +312,7 @@
       color: var(--red-hi);
     }
 
-    /* ── CONTACT ── */
+    /* CONTACT */
     .contact {
       padding: 2rem 2rem 7rem;
       text-align: center;
@@ -312,10 +341,7 @@
       display: inline-block;
       word-break: break-all;
     }
-    .contact-email:hover {
-      color: var(--white);
-      border-color: var(--red-hi);
-    }
+    .contact-email:hover { color: var(--white); border-color: var(--red-hi); }
     .contact-note {
       margin-top: 1.8rem;
       font-size: 0.88rem;
@@ -324,8 +350,6 @@
       opacity: 0.55;
       letter-spacing: 0.05em;
     }
-
-    /* ── CONNECT BUTTON ── */
     .contact-divider-line {
       width: 1px;
       height: 40px;
@@ -361,15 +385,14 @@
     .connect-btn:hover::before { transform: scaleX(1); }
     .connect-btn span { position: relative; z-index: 1; }
     .connect-arrow {
-      position: relative;
-      z-index: 1;
+      position: relative; z-index: 1;
       font-size: 0.7rem;
       color: var(--red-hi);
       transition: transform 0.3s;
     }
     .connect-btn:hover .connect-arrow { transform: translateX(4px); }
 
-    /* ── FOOTER ── */
+    /* FOOTER */
     footer {
       border-top: 0.5px solid rgba(139,0,0,0.2);
       padding: 2.5rem 2rem;
@@ -392,7 +415,7 @@
       color: rgba(136,136,128,0.4);
     }
 
-    /* ── ANIMATIONS ── */
+    /* ANIMATIONS */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(28px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -408,64 +431,37 @@
     }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
-    /* ── PORTRAIT MOBILE ── */
+    /* PORTRAIT MOBILE */
     @media (max-width: 600px) {
       nav { padding: 1.2rem 1.2rem; }
       .nav-links { display: none; }
-
       .hero { padding: 6rem 1.2rem 3rem; }
       .hero-logo { width: clamp(150px, 60vw, 240px); margin-bottom: 2rem; }
-
       .section-divider { padding: 0 1.2rem; margin: 3.5rem auto; }
-
       .pillars { padding: 0 1.2rem 5rem; }
       .pillars-grid { grid-template-columns: 1fr; }
-      .pillar {
-        border-right: none;
-        border-bottom: 0.5px solid rgba(139,0,0,0.15);
-        padding: 2.2rem 1.5rem;
-      }
+      .pillar { border-right: none; border-bottom: 0.5px solid rgba(139,0,0,0.15); padding: 2.2rem 1.5rem 2rem; }
       .pillar:last-child { border-bottom: none; }
-
+      .pillar-btn { font-size: 0.5rem; padding: 0.65rem 1rem; }
       .statement { padding: 4rem 1.2rem; }
-
       .contact { padding: 1.5rem 1.2rem 5rem; }
-      .connect-btn { padding: 0.9rem 1.5rem; font-size: 0.55rem; letter-spacing: 0.25em; }
-
-      footer {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 2rem 1.2rem;
-        gap: 0.6rem;
-      }
-      .footer-copy { font-size: 0.45rem; }
+      footer { flex-direction: column; align-items: center; text-align: center; padding: 2rem 1.2rem; }
     }
-
-    /* ── TABLET PORTRAIT ── */
     @media (min-width: 601px) and (max-width: 900px) {
       nav { padding: 1.5rem 2rem; }
-      .nav-links { gap: 1.8rem; }
       .pillars-grid { grid-template-columns: 1fr; }
-      .pillar {
-        border-right: none;
-        border-bottom: 0.5px solid rgba(139,0,0,0.15);
-      }
+      .pillar { border-right: none; border-bottom: 0.5px solid rgba(139,0,0,0.15); }
       .pillar:last-child { border-bottom: none; }
-      .contact { max-width: 100%; }
     }
   </style>
 </head>
 <body>
-
   <div class="video-bg">
     <video autoplay muted loop playsinline>
       <source src="assets/0455.mp4" type="video/mp4"/>
     </video>
   </div>
-
   <div class="page">
-
     <nav>
       <a class="nav-mark" href="#">T5S</a>
       <ul class="nav-links">
@@ -491,16 +487,28 @@
           <span class="pillar-num">01</span>
           <p class="pillar-title">Vanguard</p>
           <p class="pillar-text">Real estate acquisition and development. Every property held, protected, and positioned for generational return.</p>
+          <a class="pillar-btn" href="https://vanguard.wearet5s.com" target="_blank">
+            <span>T5S Vanguard</span>
+            <span class="pillar-btn-arrow">→</span>
+          </a>
         </div>
         <div class="pillar reveal" style="transition-delay:0.15s">
           <span class="pillar-num">02</span>
           <p class="pillar-title">Operations</p>
           <p class="pillar-text">Social services and community infrastructure. Where capital meets purpose. Where purpose becomes legacy.</p>
+          <a class="pillar-btn" href="https://ops.wearet5s.com" target="_blank">
+            <span>LVO Operations</span>
+            <span class="pillar-btn-arrow">→</span>
+          </a>
         </div>
         <div class="pillar reveal" style="transition-delay:0.3s">
           <span class="pillar-num">03</span>
           <p class="pillar-title">Alliance</p>
           <p class="pillar-text">Strategic partnerships and capital ventures. Built on trust, sealed in results. Access is earned, not given.</p>
+          <a class="pillar-btn" href="https://alliance.wearelvo.com" target="_blank">
+            <span>LVO Alliance</span>
+            <span class="pillar-btn-arrow">→</span>
+          </a>
         </div>
       </div>
     </section>
@@ -513,33 +521,27 @@
         We do not explain.<br/>
         <em>We build.</em>
       </p>
-      <p class="statement-attr reveal" style="transition-delay:0.2s">T5S Holdings · Private</p>
+      <p class="statement-attr reveal" style="transition-delay:0.2s">LVO Holdings · Private</p>
     </section>
 
     <div class="section-divider reveal" id="contact"><span>Contact</span></div>
 
     <section class="contact">
       <span class="contact-label reveal">Private Inquiries</span>
-      <a class="contact-email reveal" href="mailto:contact@wearet5s.com" style="transition-delay:0.1s">
-        contact@wearet5s.com
-      </a>
+      <a class="contact-email reveal" href="mailto:contact@wearelvo.com" style="transition-delay:0.1s">contact@wearelvo.com</a>
       <p class="contact-note reveal" style="transition-delay:0.2s">Private correspondence only.</p>
-
       <div class="contact-divider-line reveal" style="transition-delay:0.3s"></div>
-
-      <a class="connect-btn reveal" href="https://contact.wearet5s.com" target="_blank" style="transition-delay:0.4s">
+      <a class="connect-btn reveal" href="https://contact.wearelvo.com" target="_blank" style="transition-delay:0.4s">
         <span>Connect with us</span>
         <span class="connect-arrow">→</span>
       </a>
     </section>
 
     <footer>
-      <span class="footer-mark">T5S Holdings LLC</span>
-      <span class="footer-copy">&copy; 2026 T5S Family Legacy Trust · All Rights Reserved</span>
+      <span class="footer-mark">LVO Holdings</span>
+      <span class="footer-copy">&copy; 2026 LVO Family Legacy Trust · All Rights Reserved</span>
     </footer>
-
   </div>
-
   <script>
     const reveals = document.querySelectorAll('.reveal');
     const obs = new IntersectionObserver((entries) => {
@@ -549,6 +551,5 @@
     }, { threshold: 0.12 });
     reveals.forEach(r => obs.observe(r));
   </script>
-
 </body>
 </html>
