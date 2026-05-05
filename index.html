@@ -16,7 +16,7 @@
       --chrome: #C8C8D0;
       --white:  #F0EEEC;
       --dim:    #888880;
-      --bg:     #050505;
+      --bg:     #000000;
     }
     html { scroll-behavior: smooth; }
     body {
@@ -408,6 +408,23 @@
       letter-spacing: 0.3em;
       color: var(--dim);
     }
+    .footer-center {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .footer-privacy {
+      font-family: 'Cinzel', serif;
+      font-size: 0.5rem;
+      letter-spacing: 0.2em;
+      color: rgba(136,136,128,0.5);
+      text-decoration: none;
+      text-transform: uppercase;
+      border-bottom: 0.5px solid rgba(139,0,0,0.25);
+      padding-bottom: 0.15rem;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .footer-privacy:hover { color: var(--red-hi); border-color: var(--red-hi); }
     .footer-copy {
       font-family: 'Cinzel', serif;
       font-size: 0.5rem;
@@ -446,6 +463,7 @@
       .statement { padding: 4rem 1.2rem; }
       .contact { padding: 1.5rem 1.2rem 5rem; }
       footer { flex-direction: column; align-items: center; text-align: center; padding: 2rem 1.2rem; }
+      .footer-center { flex-direction: column; gap: 0.6rem; }
     }
     @media (min-width: 601px) and (max-width: 900px) {
       nav { padding: 1.5rem 2rem; }
@@ -475,7 +493,7 @@
       <img class="hero-logo" src="assets/llogo nb.png" alt="T5S Holdings"/>
       <p class="hero-eyebrow">Est. 2026 · Houston, Texas</p>
       <h1 class="hero-title">T5S</h1>
-      <p class="hero-subtitle">Top 5ive &nbsp;·&nbsp; Solutions</p>
+      <p class="hero-subtitle">Legion V &nbsp;·&nbsp; Omni-Operations</p>
       <div class="hero-rule"></div>
     </section>
 
@@ -485,10 +503,10 @@
       <div class="pillars-grid">
         <div class="pillar reveal">
           <span class="pillar-num">01</span>
-          <p class="pillar-title">Vanguard</p>
+          <p class="pillar-title">Vindex</p>
           <p class="pillar-text">Real estate acquisition and development. Every property held, protected, and positioned for generational return.</p>
-          <a class="pillar-btn" href="https://vanguard.wearet5s.com" target="_blank">
-            <span>T5S Vanguard</span>
+          <a class="pillar-btn" href="https://vindex.wearet5s.com" target="_blank">
+            <span>T5S Vindex</span>
             <span class="pillar-btn-arrow">→</span>
           </a>
         </div>
@@ -528,7 +546,7 @@
 
     <section class="contact">
       <span class="contact-label reveal">Private Inquiries</span>
-      <a class="contact-email reveal" href="mailto:contact@wearet5s.com" style="transition-delay:0.1s">contact@wearet5s.com</a>
+      <a class="contact-email reveal" href="/cdn-cgi/l/email-protection#4c2f2322382d2f380c3b292d3e29203a23622f2321" style="transition-delay:0.1s"><span class="__cf_email__" data-cfemail="d9bab6b7adb8baad99aebcb8abbcb5afb6f7bab6b4">[email&#160;protected]</span></a>
       <p class="contact-note reveal" style="transition-delay:0.2s">Private correspondence only.</p>
       <div class="contact-divider-line reveal" style="transition-delay:0.3s"></div>
       <a class="connect-btn reveal" href="https://contact.wearet5s.com" target="_blank" style="transition-delay:0.4s">
@@ -539,10 +557,14 @@
 
     <footer>
       <span class="footer-mark">T5S Holdings</span>
-      <span class="footer-copy">&copy; 2026 T5S Family Legacy Trust · All Rights Reserved</span>
+      <div class="footer-center">
+        <a class="footer-privacy" href="https://privacy.wearet5s.com">Privacy Policy</a>
+        <a class="footer-privacy" href="https://tos.wearet5s.com">Terms of Service</a>
+        <span class="footer-copy">&copy; 2026 T5S Family Legacy Trust · All Rights Reserved</span>
+      </div>
     </footer>
   </div>
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const reveals = document.querySelectorAll('.reveal');
     const obs = new IntersectionObserver((entries) => {
       entries.forEach(e => {
