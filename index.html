@@ -33,13 +33,13 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;font-family:'Ti
 #stage{position:fixed;inset:-3%;z-index:0;background:transparent;will-change:transform;}
 #stage canvas{width:100%!important;height:100%!important;display:block;}
 
-#lvo-logo-overlay{
+#t5s-logo-overlay{
   position:fixed;inset:0;z-index:20;
   display:flex;align-items:center;justify-content:center;
   pointer-events:none;
   transition:opacity 0.7s ease;
 }
-#lvo-logo-overlay img{
+#t5s-logo-overlay img{
   width:clamp(180px,28vw,380px);
   height:auto;
   filter:drop-shadow(0 0 30px rgba(139,0,0,0.6)) drop-shadow(0 0 8px rgba(0,0,0,0.9));
@@ -49,7 +49,7 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;font-family:'Ti
   0%,100%{transform:translateY(0px);}
   50%{transform:translateY(-10px);}
 }
-#lvo-logo-overlay.hidden{opacity:0;}
+#t5s-logo-overlay.hidden{opacity:0;}
 
 /* ── TITLE ── */
 #title{position:fixed;top:0;left:0;right:0;z-index:30;padding:clamp(14px,3vw,28px) clamp(16px,4vw,40px);}
@@ -103,7 +103,7 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;font-family:'Ti
     justify-content:center;
   }
   #about-text.visible{ transform:translateY(-50%); }
-  #about-text .about-lvo{ font-size:clamp(48px,12vw,72px); }
+  #about-text .about-t5s{ font-size:clamp(48px,12vw,72px); }
 
   #screen-page-nav li.has-mobile-btn{
     flex-direction:column;
@@ -155,10 +155,10 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;font-family:'Ti
   .slide-mobile-btn{ display:none !important; }
 }
 
-#screen-page-nav li.lvo-about{display:flex;align-items:center;justify-content:center;}
-#screen-page-nav li.lvo-about .about-inner{text-align:center;opacity:0.85;}
-#screen-page-nav li.lvo-about .about-inner .lvo-big{font-family:'IM Fell English',Georgia,serif;font-style:italic;font-size:clamp(36px,7vw,96px);color:var(--white);letter-spacing:0.08em;line-height:1;display:block;}
-#screen-page-nav li.lvo-about .about-inner .lvo-sub{font-size:clamp(7px,1.5vw,11px);letter-spacing:0.4em;color:var(--dimmer);display:block;margin-top:10px;}
+#screen-page-nav li.t5s-about{display:flex;align-items:center;justify-content:center;}
+#screen-page-nav li.t5s-about .about-inner{text-align:center;opacity:0.85;}
+#screen-page-nav li.t5s-about .about-inner .t5s-big{font-family:'IM Fell English',Georgia,serif;font-style:italic;font-size:clamp(36px,7vw,96px);color:var(--white);letter-spacing:0.08em;line-height:1;display:block;}
+#screen-page-nav li.t5s-about .about-inner .t5s-sub{font-size:clamp(7px,1.5vw,11px);letter-spacing:0.4em;color:var(--dimmer);display:block;margin-top:10px;}
 
 .controller-item.is-symbol .numerator{font-size:clamp(11px,2vw,15px);letter-spacing:0;padding-bottom:6px;}
 .controller-item.is-symbol.is-current .numerator{color:var(--white);}
@@ -184,7 +184,7 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;font-family:'Ti
 @media (max-width:768px){
   #stage{inset:0;transform:none!important;will-change:auto;}
   #title a span:first-child{display:none;}
-  #title a::before{content:'LVO';font-family:'Cinzel',serif;font-size:13px;letter-spacing:.3em;color:var(--white);}
+  #title a::before{content:'T5S';font-family:'Cinzel',serif;font-size:13px;letter-spacing:.3em;color:var(--white);}
   #stage canvas{opacity:0.95;}
 }
 
@@ -211,7 +211,7 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;font-family:'Ti
   }
 }
 
-#about-text .about-lvo{
+#about-text .about-t5s{
   display:block;
   font-family:'Cinzel',serif;
   font-weight:900;
@@ -290,10 +290,10 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;font-family:'Ti
 <div id="site-wrap">
 
   <div id="stage"><canvas></canvas></div>
-  <video id="video-bg" src="https://assets.wearelvo.com/LVO.mp4" autoplay loop muted playsinline preload="auto"></video>
+  <video id="video-bg" src="assets/T5S.mp4" autoplay loop muted playsinline preload="auto"></video>
 
   <div id="title">
-    <a href="https://wearelvo.com/" id="title-link">
+    <a href="https://wearet5s.com/" id="title-link">
       <span style="letter-spacing:0.3em;">Top 5 Solutions</span>
       <span id="title-indicator"></span>
     </a>
@@ -301,8 +301,8 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;font-family:'Ti
 
   <!-- ── ABOUT TEXT OVERLAY (Slide 0 only) ── -->
   <div id="about-text">
-    <span class="about-lvo"></span>
-    <a class="about-btn" href="https://about.wearelvo.com/">
+    <span class="about-t5s"></span>
+    <a class="about-btn" href="https://about.wearet5s.com/">
       About Us
     </a>
   </div>
@@ -314,21 +314,21 @@ html,body{width:100%;height:100%;background:#000;overflow:hidden;font-family:'Ti
         <div class="about-inner" style="text-align:center;opacity:0.85;"></div>
       </li>
       <!-- Slide 1: Connect -->
-      <li data-idx="1" data-href="https://contact.wearelvo.com/"><a href="https://contact.wearelvo.com/">Connect</a></li>
+      <li data-idx="1" data-href="https://contact.wearet5s.com/"><a href="https://contact.wearet5s.com/">Connect</a></li>
       <!-- Slide 2: Vindex -->
-      <li data-idx="2" data-href="https://vindex.wearelvo.com/" class="has-mobile-btn">
-        <a href="https://vindex.wearelvo.com/">Vindex</a>
-        <a class="slide-mobile-btn" href="https://vindex.wearelvo.com/">Vindex</a>
+      <li data-idx="2" data-href="https://vindex.wearet5s.com/" class="has-mobile-btn">
+        <a href="https://vindex.wearet5s.com/">Vindex</a>
+        <a class="slide-mobile-btn" href="https://vindex.wearet5s.com/">Vindex</a>
       </li>
       <!-- Slide 3: Alliance -->
-      <li data-idx="3" data-href="https://alliance.wearelvo.com/" class="has-mobile-btn">
-        <a href="https://alliance.wearelvo.com/">Alliance</a>
-        <a class="slide-mobile-btn" href="https://alliance.wearelvo.com/">Alliance</a>
+      <li data-idx="3" data-href="https://alliance.wearet5s.com/" class="has-mobile-btn">
+        <a href="https://alliance.wearet5s.com/">Alliance</a>
+        <a class="slide-mobile-btn" href="https://alliance.wearet5s.com/">Alliance</a>
       </li>
       <!-- Slide 4: Operations -->
-      <li data-idx="4" data-href="https://ops.wearelvo.com/" class="has-mobile-btn">
-        <a href="https://ops.wearelvo.com/">Operations</a>
-        <a class="slide-mobile-btn" href="https://ops.wearelvo.com/">Operations</a>
+      <li data-idx="4" data-href="https://ops.wearet5s.com/" class="has-mobile-btn">
+        <a href="https://ops.wearet5s.com/">Operations</a>
+        <a class="slide-mobile-btn" href="https://ops.wearet5s.com/">Operations</a>
       </li>
     </ul>
   </div>
@@ -381,7 +381,7 @@ function dismissLoader(){
 setTimeout(dismissLoader, 2400);
 
 // ─── SLIDES ────────────────────────────────────────────────────────────────
-const ASSETS = 'https://assets.wearelvo.com/';
+const ASSETS = 'https://assets.wearet5s.com/';
 
 function getImageUrl(desktopImg, mobileImg) {
   return isMobileDevice ? mobileImg : desktopImg;
