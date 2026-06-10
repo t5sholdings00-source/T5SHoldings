@@ -1,577 +1,703 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja-JP">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>T5S Holdings</title>
-  <link rel="icon" type="image/png" href="assets/llogo nb.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --red:    #8B0000;
-      --red-hi: #CC2020;
-      --chrome: #C8C8D0;
-      --white:  #F0EEEC;
-      --dim:    #888880;
-      --bg:     #000000;
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: 'Cormorant Garamond', Georgia, serif;
-      overflow-x: hidden;
-      cursor: default;
-    }
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity: 0.03;
-      pointer-events: none;
-      z-index: 9999;
-    }
-    .video-bg {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-    }
-    .video-bg video {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      opacity: 0.13;
-      filter: saturate(0.4) contrast(1.2);
-    }
-    .video-bg::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at center, transparent 0%, var(--bg) 75%);
-    }
-    .page {
-      position: relative;
-      z-index: 1;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+<title>𝐋𝐕𝐎 ♱⃓ᛪ༙ Holdings</title>
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cinzel:wght@400;600;900&family=Cormorant+SC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--white:#fff;--dim:rgba(255,255,255,0.5);--dimmer:rgba(255,255,255,0.25);--purple:#7F77DD;}
+html,body{width:100%;height:100%;background:#000;overflow:hidden;font-family:'Times New Roman',Georgia,serif;user-select:none;}
 
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 1.8rem 4rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: linear-gradient(to bottom, rgba(5,5,5,0.95) 0%, transparent 100%);
-    }
-    .nav-mark {
-      font-family: 'Cinzel', serif;
-      font-size: 1rem;
-      font-weight: 600;
-      letter-spacing: 0.35em;
-      color: var(--chrome);
-      text-decoration: none;
-    }
-    .nav-links { display: flex; gap: 3rem; list-style: none; }
-    .nav-links a {
-      font-family: 'Cinzel', serif;
-      font-size: 0.62rem;
-      letter-spacing: 0.25em;
-      color: var(--dim);
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: color 0.3s;
-    }
-    .nav-links a:hover { color: var(--white); }
+@media (pointer:coarse){ body{cursor:auto;} #waiting-cover-cursor{display:none!important;} }
+@media (pointer:fine){ body{cursor:none;} }
 
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 7rem 1.5rem 4rem;
-      position: relative;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -55%);
-      width: min(520px, 90vw);
-      height: min(520px, 90vw);
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(139,0,0,0.18) 0%, transparent 70%);
-      pointer-events: none;
-    }
-    .hero-logo {
-      width: clamp(160px, 48vw, 360px);
-      height: auto;
-      margin-bottom: 2.8rem;
-      opacity: 0;
-      animation: fadeUp 1.4s cubic-bezier(0.16,1,0.3,1) 0.3s forwards;
-      filter: drop-shadow(0 0 40px rgba(139,0,0,0.35)) drop-shadow(0 0 80px rgba(139,0,0,0.15));
-    }
-    .hero-eyebrow {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(0.5rem, 1.8vw, 0.6rem);
-      letter-spacing: 0.4em;
-      color: var(--red-hi);
-      text-transform: uppercase;
-      margin-bottom: 1.2rem;
-      opacity: 0;
-      animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) 0.8s forwards;
-    }
-    .hero-title {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(2.4rem, 10vw, 5.5rem);
-      font-weight: 900;
-      letter-spacing: 0.22em;
-      color: var(--white);
-      line-height: 1;
-      margin-bottom: 0.6rem;
-      opacity: 0;
-      animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) 1s forwards;
-    }
-    .hero-subtitle {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(0.48rem, 2vw, 0.72rem);
-      letter-spacing: 0.35em;
-      color: var(--dim);
-      text-transform: uppercase;
-      margin-bottom: 3.5rem;
-      opacity: 0;
-      animation: fadeUp 1s cubic-bezier(0.16,1,0.3,1) 1.2s forwards;
-    }
-    .hero-rule {
-      width: 1px;
-      height: 60px;
-      background: linear-gradient(to bottom, transparent, var(--red-hi), transparent);
-      margin: 0 auto;
-      opacity: 0;
-      animation: fadeIn 1s ease 1.8s forwards;
-    }
+/* ── LOADING SCREEN ── */
+#loading-screen{position:fixed;inset:0;z-index:9999;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.8rem;transition:opacity 0.8s ease;}
+#loading-screen.fade-out{opacity:0;pointer-events:none;}
+.ls-rule{width:1px;height:80px;background:linear-gradient(to bottom,transparent,var(--purple),transparent);animation:lsPulse 1.8s ease-in-out infinite;}
+@keyframes lsPulse{0%,100%{opacity:.3}50%{opacity:1}}
+.ls-name{font-family:'Cinzel',serif;font-size:2.8rem;font-weight:900;letter-spacing:.25em;color:#C8C8D0;line-height:1;}
+.ls-sub{font-family:'Cormorant SC',serif;font-size:.48rem;letter-spacing:.5em;color:rgba(255,255,255,0.38);text-transform:uppercase;text-align:center;padding:0 1rem;}
+.ls-bar{width:200px;height:1px;background:rgba(127,119,221,.2);overflow:hidden;position:relative;}
+.ls-bar-fill{position:absolute;inset:0;background:linear-gradient(90deg,transparent,var(--purple),transparent);animation:lsBar 1.4s ease-in-out infinite;}
+@keyframes lsBar{0%{transform:translateX(-100%)}100%{transform:translateX(200%)}}
 
-    /* DIVIDER */
-    .section-divider {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-      padding: 0 2rem;
-      margin: 5rem auto;
-      max-width: 900px;
-      width: 100%;
-    }
-    .section-divider::before,
-    .section-divider::after {
-      content: '';
-      flex: 1;
-      height: 0.5px;
-      background: linear-gradient(to right, transparent, var(--red) 40%, transparent);
-    }
-    .section-divider span {
-      font-family: 'Cinzel', serif;
-      font-size: 0.55rem;
-      letter-spacing: 0.4em;
-      color: var(--red-hi);
-      white-space: nowrap;
-    }
+/* ── MAIN SITE ── */
+#site-wrap{opacity:0;transition:opacity 0.8s ease;}
+#site-wrap.visible{opacity:1;}
 
-    /* PILLARS */
-    .pillars {
-      padding: 0 2rem 6rem;
-      max-width: 1100px;
-      margin: 0 auto;
-      width: 100%;
-    }
-    .pillars-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      border: 0.5px solid rgba(139,0,0,0.2);
-    }
-    .pillar {
-      padding: 3rem 2rem 2.5rem;
-      border-right: 0.5px solid rgba(139,0,0,0.15);
-      position: relative;
-      overflow: hidden;
-      transition: background 0.4s;
-      display: flex;
-      flex-direction: column;
-    }
-    .pillar:last-child { border-right: none; }
-    .pillar::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(to right, transparent, var(--red), transparent);
-      transform: scaleX(0);
-      transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
-    }
-    .pillar:hover { background: rgba(139,0,0,0.04); }
-    .pillar:hover::before { transform: scaleX(1); }
-    .pillar-num {
-      font-family: 'Cinzel', serif;
-      font-size: 0.55rem;
-      letter-spacing: 0.35em;
-      color: var(--red-hi);
-      margin-bottom: 1.5rem;
-      display: block;
-    }
-    .pillar-title {
-      font-family: 'Cinzel', serif;
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      color: var(--chrome);
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-    }
-    .pillar-text {
-      font-size: 0.92rem;
-      font-weight: 300;
-      line-height: 1.9;
-      color: var(--dim);
-      font-style: italic;
-      flex: 1;
-      margin-bottom: 2rem;
-    }
+/* ── STAGE ── */
+#stage{position:fixed;inset:-3%;z-index:0;background:transparent;will-change:transform;}
+#stage canvas{width:100%!important;height:100%!important;display:block;}
 
-    /* PILLAR BUTTON */
-    .pillar-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: 'Cinzel', serif;
-      font-size: 0.52rem;
-      letter-spacing: 0.28em;
-      color: var(--dim);
-      text-decoration: none;
-      text-transform: uppercase;
-      border: 0.5px solid rgba(139,0,0,0.3);
-      padding: 0.75rem 1.2rem;
-      position: relative;
-      overflow: hidden;
-      transition: color 0.35s, border-color 0.35s;
-      align-self: flex-start;
-    }
-    .pillar-btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(139,0,0,0.07);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
-    }
-    .pillar-btn:hover { color: var(--white); border-color: var(--red-hi); }
-    .pillar-btn:hover::before { transform: scaleX(1); }
-    .pillar-btn span { position: relative; z-index: 1; }
-    .pillar-btn-arrow {
-      position: relative;
-      z-index: 1;
-      color: var(--red-hi);
-      transition: transform 0.3s;
-      font-size: 0.6rem;
-    }
-    .pillar-btn:hover .pillar-btn-arrow { transform: translateX(3px); }
+#lvo-logo-overlay{
+  position:fixed;inset:0;z-index:20;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:none;
+  transition:opacity 0.7s ease;
+}
+#lvo-logo-overlay img{
+  width:clamp(180px,28vw,380px);
+  height:auto;
+  filter:drop-shadow(0 0 30px rgba(139,0,0,0.6)) drop-shadow(0 0 8px rgba(0,0,0,0.9));
+  animation:logoFloat 5s ease-in-out infinite;
+}
+@keyframes logoFloat{
+  0%,100%{transform:translateY(0px);}
+  50%{transform:translateY(-10px);}
+}
+#lvo-logo-overlay.hidden{opacity:0;}
 
-    /* STATEMENT */
-    .statement {
-      padding: 6rem 2rem;
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto;
-      width: 100%;
-    }
-    .statement-quote {
-      font-size: clamp(1.2rem, 4.5vw, 2.2rem);
-      font-weight: 300;
-      font-style: italic;
-      line-height: 1.8;
-      color: var(--white);
-      opacity: 0.85;
-      letter-spacing: 0.04em;
-    }
-    .statement-quote em { color: var(--chrome); font-style: normal; }
-    .statement-attr {
-      margin-top: 2.5rem;
-      font-family: 'Cinzel', serif;
-      font-size: 0.55rem;
-      letter-spacing: 0.4em;
-      color: var(--red-hi);
-    }
+/* ── TITLE ── */
+#title{position:fixed;top:0;left:0;right:0;z-index:30;padding:clamp(14px,3vw,28px) clamp(16px,4vw,40px);}
+#title a{text-decoration:none;color:var(--white);font-size:clamp(9px,2vw,13px);letter-spacing:0.3em;display:inline-flex;align-items:center;position:relative;}
+#title-indicator{display:inline-block;width:40px;height:1px;background:var(--white);margin-left:12px;transform-origin:left center;transform:scaleX(0.75);transition:transform 0.4s;}
+#title a:hover #title-indicator{transform:scaleX(1);}
 
-    /* CONTACT */
-    .contact {
-      padding: 2rem 2rem 7rem;
-      text-align: center;
-      max-width: 560px;
-      margin: 0 auto;
-      width: 100%;
-    }
-    .contact-label {
-      font-family: 'Cinzel', serif;
-      font-size: 0.55rem;
-      letter-spacing: 0.45em;
-      color: var(--dim);
-      text-transform: uppercase;
-      margin-bottom: 2rem;
-      display: block;
-    }
-    .contact-email {
-      font-family: 'Cinzel', serif;
-      font-size: clamp(0.65rem, 2.5vw, 0.92rem);
-      letter-spacing: 0.15em;
-      color: var(--chrome);
-      text-decoration: none;
-      border-bottom: 0.5px solid rgba(139,0,0,0.4);
-      padding-bottom: 0.4rem;
-      transition: color 0.3s, border-color 0.3s;
-      display: inline-block;
-      word-break: break-all;
-    }
-    .contact-email:hover { color: var(--white); border-color: var(--red-hi); }
-    .contact-note {
-      margin-top: 1.8rem;
-      font-size: 0.88rem;
-      font-style: italic;
-      color: var(--dim);
-      opacity: 0.55;
-      letter-spacing: 0.05em;
-    }
-    .contact-divider-line {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, transparent, rgba(139,0,0,0.4), transparent);
-      margin: 2.5rem auto;
-    }
-    .connect-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      font-family: 'Cinzel', serif;
-      font-size: 0.6rem;
-      letter-spacing: 0.35em;
-      color: var(--dim);
-      text-decoration: none;
-      text-transform: uppercase;
-      border: 0.5px solid rgba(139,0,0,0.35);
-      padding: 1rem 2.2rem;
-      position: relative;
-      overflow: hidden;
-      transition: color 0.4s, border-color 0.4s;
-    }
-    .connect-btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(139,0,0,0.06);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1);
-    }
-    .connect-btn:hover { color: var(--white); border-color: var(--red-hi); }
-    .connect-btn:hover::before { transform: scaleX(1); }
-    .connect-btn span { position: relative; z-index: 1; }
-    .connect-arrow {
-      position: relative; z-index: 1;
-      font-size: 0.7rem;
-      color: var(--red-hi);
-      transition: transform 0.3s;
-    }
-    .connect-btn:hover .connect-arrow { transform: translateX(4px); }
+/* ── STAGE NAV ── */
+#stage-nav{position:fixed;top:50%;left:0;right:0;z-index:30;transform:translateY(-50%);overflow:hidden;pointer-events:none;}
+#screen-page-nav{display:flex;list-style:none;transition:transform 0.8s cubic-bezier(0.77,0,0.175,1);will-change:transform;}
+#screen-page-nav li{flex-shrink:0;display:flex;align-items:center;justify-content:center;pointer-events:all;}
+#screen-page-nav li a{text-decoration:none;color:var(--white);font-size:clamp(22px,5vw,68px);letter-spacing:0.02em;line-height:1;display:block;padding:0 clamp(8px,2vw,20px);white-space:nowrap;font-family:'IM Fell English',Georgia,serif;font-style:italic;}
 
-    /* FOOTER */
-    footer {
-      border-top: 0.5px solid rgba(139,0,0,0.2);
-      padding: 2.5rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 0.8rem;
-    }
-    .footer-mark {
-      font-family: 'Cinzel', serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.3em;
-      color: var(--dim);
-    }
-    .footer-center {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-    .footer-privacy {
-      font-family: 'Cinzel', serif;
-      font-size: 0.5rem;
-      letter-spacing: 0.2em;
-      color: rgba(136,136,128,0.5);
-      text-decoration: none;
-      text-transform: uppercase;
-      border-bottom: 0.5px solid rgba(139,0,0,0.25);
-      padding-bottom: 0.15rem;
-      transition: color 0.3s, border-color 0.3s;
-    }
-    .footer-privacy:hover { color: var(--red-hi); border-color: var(--red-hi); }
-    .footer-copy {
-      font-family: 'Cinzel', serif;
-      font-size: 0.5rem;
-      letter-spacing: 0.15em;
-      color: rgba(136,136,128,0.4);
-    }
+/* ── TRUE FOCUS: blur/unblur nav items ── */
+#screen-page-nav li a {
+  transition: opacity 0.4s ease, filter 0.55s ease;
+}
+#screen-page-nav li:not(.is-current) a {
+  filter: blur(4px);
+  opacity: 0.25;
+}
+#screen-page-nav li.is-current a {
+  filter: blur(0px);
+  opacity: 1;
+}
+.slide-mobile-btn {
+  transition: filter 0.55s ease, color 0.4s ease !important;
+}
+#screen-page-nav li:not(.is-current) .slide-mobile-btn {
+  filter: blur(4px);
+  color: rgba(255,255,255,0.22) !important;
+}
+#screen-page-nav li.is-current .slide-mobile-btn {
+  filter: blur(0px);
+  color: rgba(255,255,255,1) !important;
+}
 
-    /* ANIMATIONS */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to   { opacity: 1; }
-    }
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+/* ── MOBILE ── */
+@media(max-width:768px){
+  #about-text{
+    left:0 !important;
+    right:0 !important;
+    width:100%;
+    bottom:auto;
+    top:62%;
+    transform:translateY(-50%);
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+  }
+  #about-text.visible{ transform:translateY(-50%); }
+  #about-text .about-lvo{ font-size:clamp(48px,12vw,72px); }
 
-    /* PORTRAIT MOBILE */
-    @media (max-width: 600px) {
-      nav { padding: 1.2rem 1.2rem; }
-      .nav-links { display: none; }
-      .hero { padding: 6rem 1.2rem 3rem; }
-      .hero-logo { width: clamp(150px, 60vw, 240px); margin-bottom: 2rem; }
-      .section-divider { padding: 0 1.2rem; margin: 3.5rem auto; }
-      .pillars { padding: 0 1.2rem 5rem; }
-      .pillars-grid { grid-template-columns: 1fr; }
-      .pillar { border-right: none; border-bottom: 0.5px solid rgba(139,0,0,0.15); padding: 2.2rem 1.5rem 2rem; }
-      .pillar:last-child { border-bottom: none; }
-      .pillar-btn { font-size: 0.5rem; padding: 0.65rem 1rem; }
-      .statement { padding: 4rem 1.2rem; }
-      .contact { padding: 1.5rem 1.2rem 5rem; }
-      footer { flex-direction: column; align-items: center; text-align: center; padding: 2rem 1.2rem; }
-      .footer-center { flex-direction: column; gap: 0.6rem; }
-    }
-    @media (min-width: 601px) and (max-width: 900px) {
-      nav { padding: 1.5rem 2rem; }
-      .pillars-grid { grid-template-columns: 1fr; }
-      .pillar { border-right: none; border-bottom: 0.5px solid rgba(139,0,0,0.15); }
-      .pillar:last-child { border-bottom: none; }
-    }
-  </style>
+  #screen-page-nav li.has-mobile-btn{
+    flex-direction:column;
+    gap:16px;
+    align-items:center;
+    justify-content:center;
+  }
+
+  #screen-page-nav li.has-mobile-btn > a:first-of-type{
+    display:none;
+  }
+
+  .slide-mobile-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:14px;
+    text-decoration:none;
+    border:none;
+    outline:none;
+    padding:10px 0;
+    font-family:'Cinzel',serif;
+    font-size:clamp(22px,5vw,68px);
+    font-weight:400;
+    letter-spacing:.02em;
+    color:rgba(255,255,255,0.3);
+    font-family:'IM Fell English',Georgia,serif;
+    font-style:italic;
+    text-transform:none;
+    background:none;
+    white-space:nowrap;
+    pointer-events:all;
+  }
+  li.is-current .slide-mobile-btn{ color:rgba(255,255,255,1); }
+
+  #screen-page-nav li[data-idx="2"],
+  #screen-page-nav li[data-idx="3"],
+  #screen-page-nav li[data-idx="4"]{
+    margin-top:22vh;
+  }
+
+  #stage-nav{ top:62%; bottom:auto; transform:translateY(-50%); height:auto; overflow:visible; }
+  #screen-page-nav li{ height:auto; min-height:80px; pointer-events:all; align-items:center; justify-content:center; }
+
+  #screen-page-nav li[data-idx="1"]{ align-items:center; justify-content:center; }
+  #screen-page-nav li[data-idx="0"]{ pointer-events:none; }
+}
+
+@media(min-width:769px){
+  .slide-mobile-btn{ display:none !important; }
+}
+
+#screen-page-nav li.lvo-about{display:flex;align-items:center;justify-content:center;}
+#screen-page-nav li.lvo-about .about-inner{text-align:center;opacity:0.85;}
+#screen-page-nav li.lvo-about .about-inner .lvo-big{font-family:'IM Fell English',Georgia,serif;font-style:italic;font-size:clamp(36px,7vw,96px);color:var(--white);letter-spacing:0.08em;line-height:1;display:block;}
+#screen-page-nav li.lvo-about .about-inner .lvo-sub{font-size:clamp(7px,1.5vw,11px);letter-spacing:0.4em;color:var(--dimmer);display:block;margin-top:10px;}
+
+.controller-item.is-symbol .numerator{font-size:clamp(11px,2vw,15px);letter-spacing:0;padding-bottom:6px;}
+.controller-item.is-symbol.is-current .numerator{color:var(--white);}
+.controller-item.is-symbol .numerator{color:var(--dimmer);}
+
+/* ── BOTTOM CONTROLLER ── */
+#screen-controller{position:fixed;bottom:0;left:50%;z-index:30;transform:translateX(-50%);padding-bottom:clamp(12px,3vw,20px);pointer-events:all;}
+#screen-controller .inner{position:relative;display:flex;align-items:flex-end;}
+#knob{position:absolute;bottom:0;left:0;display:flex;align-items:flex-end;transition:transform 0.8s cubic-bezier(0.77,0,0.175,1);pointer-events:none;z-index:2;}
+.separator{display:block;width:1px;height:16px;background:var(--white);position:relative;bottom:-1px;}
+.denominator{font-size:clamp(9px,2vw,11px);color:var(--dimmer);letter-spacing:0.1em;padding-left:6px;line-height:1;position:relative;bottom:3px;}
+#controller-parent{list-style:none;display:flex;align-items:flex-end;border-bottom:0.5px solid rgba(255,255,255,0.2);}
+#controller-parent li{cursor:pointer;}
+.numerator{display:block;font-size:clamp(9px,2vw,11px);letter-spacing:0.1em;color:var(--dimmer);padding:0 clamp(5px,1.5vw,8px) 8px;transition:color 0.3s;line-height:1;}
+#controller-parent li.is-current .numerator{color:var(--white);}
+
+/* ── CUSTOM CURSOR ── */
+#waiting-cover-cursor{position:fixed;pointer-events:none;z-index:900;width:52px;height:52px;margin-left:-26px;margin-top:-26px;}
+#waiting-cover-cursor .inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
+#waiting-cover-cursor img{width:26px;height:26px;animation:spin 1.8s linear infinite;}
+@keyframes spin{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}
+
+@media (max-width:768px){
+  #stage{inset:0;transform:none!important;will-change:auto;}
+  #title a span:first-child{display:none;}
+  #title a::before{content:'LVO';font-family:'Cinzel',serif;font-size:13px;letter-spacing:.3em;color:var(--white);}
+  #stage canvas{opacity:0.95;}
+}
+
+/* ── ABOUT BUTTON OVERLAY ── */
+#about-text{
+  position:fixed;
+  bottom:clamp(80px,12vh,130px);
+  left:clamp(40px,7vw,120px);
+  z-index:30;
+  pointer-events:all;
+  opacity:0;
+  transition:opacity 0.7s ease;
+}
+#about-text.visible{ opacity:1; }
+
+@media(min-width:769px){
+  #about-text{
+    bottom:auto;
+    top:50%;
+    transform:translateY(-50%);
+  }
+  #about-text.visible{
+    transform:translateY(-50%);
+  }
+}
+
+#about-text .about-lvo{
+  display:block;
+  font-family:'Cinzel',serif;
+  font-weight:900;
+  font-size:clamp(32px,4.5vw,64px);
+  letter-spacing:.18em;
+  color:#fff;
+  line-height:1;
+  margin-bottom:1rem;
+  text-shadow:0 2px 40px rgba(0,0,0,0.9);
+  pointer-events:none;
+}
+.about-btn{
+  display:inline-flex;
+  align-items:center;
+  gap:14px;
+  text-decoration:none;
+  border:0.5px solid rgba(255,255,255,0.35);
+  padding:12px 28px;
+  font-family:'Cinzel',serif;
+  font-size:clamp(8px,1vw,11px);
+  font-weight:600;
+  letter-spacing:.45em;
+  color:rgba(255,255,255,0.85);
+  text-transform:uppercase;
+  background:rgba(0,0,0,0.28);
+  backdrop-filter:blur(6px);
+  transition:border-color 0.3s,color 0.3s,background 0.3s;
+  cursor:pointer;
+}
+.about-btn:hover{
+  border-color:var(--purple);
+  color:#fff;
+  background:rgba(127,119,221,0.12);
+}
+.about-btn-rule{
+  display:inline-block;
+  width:24px;
+  height:1px;
+  background:currentColor;
+  opacity:0.5;
+  transition:width 0.3s;
+}
+.about-btn:hover .about-btn-rule{ width:36px; }
+
+/* ── VIDEO BACKGROUND ── */
+#video-bg{
+  position:fixed;inset:0;z-index:5;
+  width:100%;height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity 0.9s ease;
+  pointer-events:none;
+}
+#video-bg.visible{ opacity:1; }
+#stage{ z-index:10; background:#000; }
+#stage.video-mode{
+  z-index:4;
+  background:transparent;
+}
+#stage.video-mode canvas{
+  opacity:0;
+}
+</style>
 </head>
 <body>
-  <div class="video-bg">
-    <video autoplay muted loop playsinline>
-      <source src="assets/0455.mp4" type="video/mp4"/>
-    </video>
+
+<!-- ── LOADING SCREEN ── -->
+<div id="loading-screen">
+  <div class="ls-rule"></div>
+  <div class="ls-name">LVO</div>
+  <div class="ls-sub">Legion V. Omni-Operations</div>
+  <div class="ls-bar"><div class="ls-bar-fill"></div></div>
+</div>
+
+<!-- ── MAIN SITE ── -->
+<div id="site-wrap">
+
+  <div id="stage"><canvas></canvas></div>
+  <video id="video-bg" src="https://assets.wearelvo.com/LVO.mp4" autoplay loop muted playsinline preload="auto"></video>
+
+  <div id="title">
+    <a href="https://wearelvo.com/" id="title-link">
+      <span style="letter-spacing:0.3em;">Legion V. Omni-Operations</span>
+      <span id="title-indicator"></span>
+    </a>
   </div>
-  <div class="page">
-    <nav>
-      <a class="nav-mark" href="#">T5S</a>
-      <ul class="nav-links">
-        <li><a href="#pillars">Structure</a></li>
-        <li><a href="#statement">Mission</a></li>
-        <li><a href="#contact">Contact</a></li>
+
+  <!-- ── ABOUT TEXT OVERLAY (Slide 0 only) ── -->
+  <div id="about-text">
+    <span class="about-lvo">𝐋𝐕𝐎</span>
+    <a class="about-btn" href="https://about.wearelvo.com/">
+      About Us
+    </a>
+  </div>
+
+  <div id="stage-nav">
+    <ul id="screen-page-nav">
+      <!-- Slide 0: About -->
+      <li class="about-slide" data-idx="0" data-href="">
+        <div class="about-inner" style="text-align:center;opacity:0.85;"></div>
+      </li>
+      <!-- Slide 1: Connect -->
+      <li data-idx="1" data-href="https://contact.wearelvo.com/"><a href="https://contact.wearelvo.com/">Connect</a></li>
+      <!-- Slide 2: Vindex -->
+      <li data-idx="2" data-href="https://vindex.wearelvo.com/" class="has-mobile-btn">
+        <a href="https://vindex.wearelvo.com/">Vindex</a>
+        <a class="slide-mobile-btn" href="https://vindex.wearelvo.com/">Vindex</a>
+      </li>
+      <!-- Slide 3: Alliance -->
+      <li data-idx="3" data-href="https://alliance.wearelvo.com/" class="has-mobile-btn">
+        <a href="https://alliance.wearelvo.com/">Alliance</a>
+        <a class="slide-mobile-btn" href="https://alliance.wearelvo.com/">Alliance</a>
+      </li>
+      <!-- Slide 4: Operations -->
+      <li data-idx="4" data-href="https://ops.wearelvo.com/" class="has-mobile-btn">
+        <a href="https://ops.wearelvo.com/">Operations</a>
+        <a class="slide-mobile-btn" href="https://ops.wearelvo.com/">Operations</a>
+      </li>
+    </ul>
+  </div>
+
+  <div id="screen-controller">
+    <div class="inner">
+      <div id="knob">
+        <span class="separator"></span>
+      </div>
+      <ul class="nav-group" id="controller-parent">
+        <li class="nav-list controller-item is-symbol is-current" data-idx="0"><span class="numerator">ᛪ༙</span></li>
+        <li class="nav-list controller-item" data-idx="1"><span class="numerator">1</span></li>
+        <li class="nav-list controller-item" data-idx="2"><span class="numerator">2</span></li>
+        <li class="nav-list controller-item" data-idx="3"><span class="numerator">3</span></li>
+        <li class="nav-list controller-item" data-idx="4"><span class="numerator">4</span></li>
       </ul>
-    </nav>
-
-    <section class="hero">
-      <img class="hero-logo" src="assets/llogo nb.png" alt="T5S Holdings"/>
-      <p class="hero-eyebrow">Est. 2026 · Houston, Texas</p>
-      <h1 class="hero-title">T5S</h1>
-      <p class="hero-subtitle">Top 5ive &nbsp;·&nbsp; Solutions</p>
-      <div class="hero-rule"></div>
-    </section>
-
-    <div class="section-divider reveal"><span>The Structure</span></div>
-
-    <section class="pillars" id="pillars">
-      <div class="pillars-grid">
-        <div class="pillar reveal">
-          <span class="pillar-num">01</span>
-          <p class="pillar-title">Vindex</p>
-          <p class="pillar-text">Real estate acquisition and development. Every property held, protected, and positioned for generational return.</p>
-          <a class="pillar-btn" href="https://vindex.wearet5s.com" target="_blank">
-            <span>T5S Vindex</span>
-            <span class="pillar-btn-arrow">→</span>
-          </a>
-        </div>
-        <div class="pillar reveal" style="transition-delay:0.15s">
-          <span class="pillar-num">02</span>
-          <p class="pillar-title">Operations</p>
-          <p class="pillar-text">Social services and community infrastructure. Where capital meets purpose. Where purpose becomes legacy.</p>
-          <a class="pillar-btn" href="https://ops.wearet5s.com" target="_blank">
-            <span>T5S Operations</span>
-            <span class="pillar-btn-arrow">→</span>
-          </a>
-        </div>
-        <div class="pillar reveal" style="transition-delay:0.3s">
-          <span class="pillar-num">03</span>
-          <p class="pillar-title">Alliance</p>
-          <p class="pillar-text">Strategic partnerships and capital ventures. Built on trust, sealed in results. Access is earned, not given.</p>
-          <a class="pillar-btn" href="https://alliance.wearet5s.com" target="_blank">
-            <span>T5S Alliance</span>
-            <span class="pillar-btn-arrow">→</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <div class="section-divider reveal"><span>The Mission</span></div>
-
-    <section class="statement" id="statement">
-      <p class="statement-quote reveal">
-        We do not advertise.<br/>
-        We do not explain.<br/>
-        <em>We build.</em>
-      </p>
-      <p class="statement-attr reveal" style="transition-delay:0.2s">T5S Holdings · Private</p>
-    </section>
-
-    <div class="section-divider reveal" id="contact"><span>Contact</span></div>
-
-    <section class="contact">
-      <span class="contact-label reveal">Private Inquiries</span>
-      <a class="contact-email reveal" href="mailto:info@wearet5s.com">info@wearet5s.com </a></a>
-      <p class="contact-note reveal" style="transition-delay:0.2s">Private correspondence only.</p>
-      <div class="contact-divider-line reveal" style="transition-delay:0.3s"></div>
-      <a class="connect-btn reveal" href="https://contact.wearet5s.com" target="_blank" style="transition-delay:0.4s">
-        <span>Connect with us</span>
-        <span class="connect-arrow">→</span>
-      </a>
-    </section>
-
-    <footer>
-      <span class="footer-mark">T5S Holdings</span>
-      <div class="footer-center">
-        <a class="footer-privacy" href="https://privacy.wearet5s.com">Privacy Policy</a>
-        <a class="footer-privacy" href="https://tos.wearet5s.com">Terms of Service</a>
-        <span class="footer-copy">&copy; 2026 T5S Family Legacy Trust · All Rights Reserved</span>
-      </div>
-    </footer>
+    </div>
   </div>
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    const reveals = document.querySelectorAll('.reveal');
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-      });
-    }, { threshold: 0.12 });
-    reveals.forEach(r => obs.observe(r));
-  </script>
+
+  <div id="waiting-cover-cursor" style="opacity:0;left:50%;top:50%;">
+    <div class="inner">
+      <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAAaABoDASIAAhEBAxEB/8QAGwAAAQQDAAAAAAAAAAAAAAAABAUGBwgAAgP/xAAsEAACAgECBQIEBwAAAAAAAAABAgMEBQARBhIhQVEHExQxMoFDYWJxoeHx/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AKz47EYrh3hutxFxDX+Mt3gWx2PJ2UoPxZP0+B3+/RNn40zTsVhNStB2ghrIEA8dQT/Olv16VofUKWguwq06leGqB8hH7Skbfdm0wdA4Y5KWfBgetDTyOxMckQ5UlPgjsfz/AM0gOrI7I4Ksp2IPY62ru8ViOSPcOjBl28g6f09HGyTySOiczMS3TuToD7NMep3C1CxjJI24rxFYVrNR3CtdgX6JE3+bDuP63je9QvULJrXqdirOp2Mc0ZRgf2OuVaeerYSxWmkgmjPMkkbFWU+QR1B1YXiS5buejmKsW7U9iZrUZMkshZifbk7nroIOxlH4XlyORUxQxnmRG6NK3YAeNAz37Us8kpmZS7Ftgeg3Osycsst2QyyPIQxA5mJ2GhdB/9k=" alt="">
+    </div>
+  </div>
+
+</div><!-- /site-wrap -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+// ─── DEVICE DETECTION ─────────────────────────────────────────────────────
+const isMobileDevice = window.innerWidth <= 768;
+const isTablet = window.innerWidth > 768 && window.innerWidth <= 1024;
+
+let WATER_INTENSITY = 0.028;
+if (isMobileDevice) {
+  WATER_INTENSITY = 0.015;
+} else if (isTablet) {
+  WATER_INTENSITY = 0.022;
+}
+
+// ─── LOADING SCREEN ───────────────────────────────────────────────────────
+const loadingScreen = document.getElementById('loading-screen');
+const siteWrap      = document.getElementById('site-wrap');
+function dismissLoader(){
+  loadingScreen.classList.add('fade-out');
+  siteWrap.classList.add('visible');
+  setTimeout(()=>{ loadingScreen.style.display='none'; }, 900);
+  startAutoAdvance();
+}
+setTimeout(dismissLoader, 2400);
+
+// ─── SLIDES ────────────────────────────────────────────────────────────────
+const ASSETS = 'https://assets.wearelvo.com/';
+
+function getImageUrl(desktopImg, mobileImg) {
+  return isMobileDevice ? mobileImg : desktopImg;
+}
+
+const SLIDES = [
+  { label:'About',      img: ASSETS+'LVO%20R.jpg',      mobile_img: ASSETS+'LVO%20Mobile%20R.jpg' },
+  { label:'Connect',    img: ASSETS+'LVO.jpg',          mobile_img: ASSETS+'LVO%20Mobile.JPG' },
+  { label:'Vindex',     img: ASSETS+'Vindex.jpg',       mobile_img: ASSETS+'Vindex%20Mobile.JPG' },
+  { label:'Alliance',   img: ASSETS+'Alliance.JPG',     mobile_img: ASSETS+'Alliance%20Mobile.JPG' },
+  { label:'Operations', img: ASSETS+'Operations.jpg',   mobile_img: ASSETS+'Operations%20Mobile.JPG' },
+];
+const TOTAL = SLIDES.length;
+
+const VIDEO_SLIDES = new Set([]);
+const videoBg  = document.getElementById('video-bg');
+const stageCanvas = document.querySelector('#stage');
+
+function updateVideoBackground(idx){
+  if(VIDEO_SLIDES.has(idx)){
+    videoBg.classList.add('visible');
+    stageCanvas.classList.add('video-mode');
+  } else {
+    videoBg.classList.remove('visible');
+    stageCanvas.classList.remove('video-mode');
+  }
+}
+updateVideoBackground(0);
+
+// ─── THREE.JS ─────────────────────────────────────────────────────────────
+const canvas = document.querySelector('#stage canvas');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias:false, alpha:false });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+const scene  = new THREE.Scene();
+const camera = new THREE.OrthographicCamera(-1,1,1,-1,0,1);
+const geo    = new THREE.PlaneGeometry(2,2);
+
+const vertSrc = `
+varying vec2 vUv;
+void main(){ vUv=uv; gl_Position=vec4(position,1.0); }
+`;
+
+const fragSrc = `
+precision highp float;
+uniform float uTime;
+uniform float uIndex;
+uniform float uBlend;
+uniform float uPrev;
+uniform sampler2D uTexA;
+uniform sampler2D uTexB;
+uniform int uHasTexA;
+uniform int uHasTexB;
+uniform float uWaterIntensity;
+varying vec2 vUv;
+
+float wave(vec2 p, float freq, float phase){
+  return sin(p.x * freq + uTime * 0.3 + phase)
+       * cos(p.y * freq * 0.8 + uTime * 0.2 + phase * 1.3);
+}
+
+void main(){
+  vec2 uv = vUv;
+
+  float w1 = wave(uv, 2.8,  0.0);
+  float w2 = wave(uv, 4.9,  2.1);
+  float w3 = wave(uv * 1.3, 1.9, 4.3);
+  float w4 = wave(uv * 0.6, 6.2, 1.7);
+
+  vec2 disp;
+  disp.x = (w1*0.5 + w2*0.3 + w3*0.15 + w4*0.05) * uWaterIntensity;
+  disp.y = (w2*0.5 + w1*0.25 + w4*0.2  + w3*0.05) * uWaterIntensity;
+  vec2 wuv = clamp(uv + disp, 0.0, 1.0);
+
+  vec3 colA, colB;
+
+  if(uHasTexA == 1){
+    colA = texture2D(uTexA, wuv).rgb * 0.82;
+  } else {
+    colA = vec3(0.04, 0.02, 0.12);
+  }
+
+  if(uHasTexB == 1){
+    colB = texture2D(uTexB, wuv).rgb * 0.82;
+  } else {
+    colB = vec3(0.04, 0.02, 0.12);
+  }
+
+  float spec = max(0.0, w1 * 0.3 + w2 * 0.2 + 0.2);
+  vec3 sheen = vec3(0.55, 0.52, 0.72) * pow(spec, 6.0) * 0.18;
+
+  vec3 col = mix(colB, colA, clamp(uBlend, 0.0, 1.0));
+  col += sheen;
+
+  vec2 vig = uv * 2.0 - 1.0;
+  col *= 1.0 - dot(vig, vig) * 0.38;
+
+  float grain = fract(sin(dot(uv * 997.0, vec2(12.9898, 78.233))) * 43758.5453);
+  col += grain * 0.018 - 0.009;
+
+  gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
+}
+`;
+
+function makePlaceholder(){
+  const d=new Uint8Array([30,30,40,255]);
+  const t=new THREE.DataTexture(d,1,1,THREE.RGBAFormat);
+  t.needsUpdate=true; return t;
+}
+
+const placeholder = makePlaceholder();
+const textures = new Array(TOTAL).fill(null);
+const loader = new THREE.TextureLoader();
+loader.crossOrigin = 'anonymous';
+
+SLIDES.forEach((s,i)=>{
+  const imgUrl = getImageUrl(s.img, s.mobile_img);
+  if(!imgUrl) return;
+  loader.load(imgUrl, tex=>{
+    tex.wrapS=tex.wrapT=THREE.ClampToEdgeWrapping;
+    tex.minFilter=THREE.LinearFilter;
+    textures[i]=tex;
+    if(i===current){
+      uniforms.uTexA.value=tex;
+      uniforms.uHasTexA.value=1;
+    }
+  });
+});
+
+const uniforms = {
+  uTime:           {value:0},
+  uIndex:          {value:0},
+  uPrev:           {value:0},
+  uBlend:          {value:1},
+  uTexA:           {value:placeholder},
+  uTexB:           {value:placeholder},
+  uHasTexA:        {value:0},
+  uHasTexB:        {value:0},
+  uWaterIntensity: {value:WATER_INTENSITY},
+};
+
+scene.add(new THREE.Mesh(geo, new THREE.ShaderMaterial({vertexShader:vertSrc,fragmentShader:fragSrc,uniforms})));
+
+function resize(){ renderer.setSize(window.innerWidth, window.innerHeight); }
+resize();
+window.addEventListener('resize', resize);
+
+// ─── NAV ──────────────────────────────────────────────────────────────────
+let current=0, transitioning=false, transitionStart=0;
+const TRANS_DUR=900;
+const navUl=document.getElementById('screen-page-nav');
+const ctrlUl=document.getElementById('controller-parent');
+const knob=document.getElementById('knob');
+
+function layoutNav(){
+  const isMobile = window.innerWidth <= 768;
+  const sw = isMobile ? window.innerWidth : window.innerWidth * 0.5;
+  navUl.dataset.sw = sw;
+  navUl.style.width=(sw*TOTAL)+'px';
+  Array.from(navUl.children).forEach(li=>{ li.style.width=sw+'px'; li.style.minHeight='80px'; });
+}
+layoutNav();
+window.addEventListener('resize', layoutNav);
+
+const aboutText = document.getElementById('about-text');
+function updateAboutText(idx){
+  if(idx === 0) aboutText.classList.add('visible');
+  else aboutText.classList.remove('visible');
+}
+updateAboutText(0);
+
+function updateNav(idx){
+  const sw = parseFloat(navUl.dataset.sw) || window.innerWidth * 0.5;
+  navUl.style.transform=`translateX(${-(sw*idx-(window.innerWidth/2-sw/2))}px)`;
+  Array.from(navUl.children).forEach((li,i)=>{
+    li.classList.remove('is-current','is-prev','is-next');
+    if(i===idx) li.classList.add('is-current');
+    else if(i===idx-1) li.classList.add('is-prev');
+    else if(i===idx+1) li.classList.add('is-next');
+  });
+  Array.from(ctrlUl.children).forEach((li,i)=>li.classList.toggle('is-current',i===idx));
+  knob.style.transform=`translateX(${idx*(ctrlUl.offsetWidth/TOTAL)}px)`;
+}
+updateNav(0);
+
+function goTo(idx){
+  if(idx<0||idx>=TOTAL||transitioning||idx===current) return;
+  transitioning=true;
+  const prev=current; current=idx;
+  const tA=textures[idx], tB=textures[prev];
+  uniforms.uTexB.value=tB||placeholder; uniforms.uHasTexB.value=tB?1:0;
+  uniforms.uTexA.value=tA||placeholder; uniforms.uHasTexA.value=tA?1:0;
+  uniforms.uPrev.value=prev; uniforms.uIndex.value=idx; uniforms.uBlend.value=0;
+  transitionStart=performance.now();
+  updateNav(idx); resetProgress();
+  updateVideoBackground(idx);
+  updateAboutText(idx);
+  setTimeout(()=>transitioning=false, TRANS_DUR+100);
+}
+
+// ─── INPUT ────────────────────────────────────────────────────────────────
+Array.from(ctrlUl.children).forEach(li=>li.addEventListener('click',()=>goTo(+li.dataset.idx)));
+
+let navDragMoved=false, navDragStartX=0;
+navUl.addEventListener('pointerdown', e=>{ navDragStartX=e.clientX; navDragMoved=false; });
+navUl.addEventListener('pointermove', e=>{ if(Math.abs(e.clientX-navDragStartX)>8) navDragMoved=true; });
+navUl.addEventListener('click', e=>{
+  const li=e.target.closest('li[data-idx]');
+  if(!li) return;
+  const idx=+li.dataset.idx, href=li.dataset.href;
+  if(navDragMoved){ e.preventDefault(); goTo(idx); return; }
+  if(idx===current){ if(href){ e.preventDefault(); window.location.href=href; } }
+  else { e.preventDefault(); goTo(idx); }
+}, true);
+
+window.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown') goTo(current+1);
+  if(e.key==='ArrowLeft' ||e.key==='ArrowUp')   goTo(current-1);
+});
+
+let wCool=false;
+window.addEventListener('wheel',e=>{
+  if(wCool)return; wCool=true;
+  if(e.deltaX>30||e.deltaY>30) goTo(current+1);
+  else if(e.deltaX<-30||e.deltaY<-30) goTo(current-1);
+  setTimeout(()=>wCool=false,900);
+},{passive:true});
+
+let stageDragX=0, stageDragging=false, stageDelta=0;
+
+document.getElementById('stage').addEventListener('pointerdown',e=>{
+  stageDragging=true; stageDragX=e.clientX; stageDelta=0;
+  e.preventDefault();
+},{passive:false});
+
+window.addEventListener('touchstart', e=>{
+  stageDragging=true;
+  stageDragX=e.touches[0].clientX;
+  stageDelta=0;
+},{passive:true});
+
+window.addEventListener('touchmove', e=>{
+  if(stageDragging) stageDelta=e.touches[0].clientX - stageDragX;
+},{passive:true});
+
+window.addEventListener('touchend', ()=>{
+  if(!stageDragging) return;
+  stageDragging=false;
+  if(stageDelta < -50) goTo(current+1);
+  else if(stageDelta > 50) goTo(current-1);
+  stageDelta=0;
+});
+
+window.addEventListener('pointermove',e=>{ if(stageDragging && e.pointerType!=='touch') stageDelta=e.clientX-stageDragX; });
+window.addEventListener('pointerup',()=>{
+  if(!stageDragging) return;
+  stageDragging=false;
+  if(stageDelta<-50) goTo(current+1);
+  else if(stageDelta>50) goTo(current-1);
+  stageDelta=0;
+});
+
+// ─── CURSOR ───────────────────────────────────────────────────────────────
+const cursor=document.getElementById('waiting-cover-cursor');
+const isTouchDevice = window.matchMedia('(pointer:coarse)').matches;
+if(!isTouchDevice){
+  window.addEventListener('mousemove',e=>{ cursor.style.left=e.clientX+'px'; cursor.style.top=e.clientY+'px'; cursor.style.opacity='0.9'; });
+  window.addEventListener('mouseleave',()=>cursor.style.opacity='0');
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────
+(function animate(ts){
+  requestAnimationFrame(animate);
+  uniforms.uTime.value=ts*0.001;
+  if(uniforms.uBlend.value<1){
+    const t=Math.min((ts-transitionStart)/TRANS_DUR,1);
+    uniforms.uBlend.value=1-(1-t)*(1-t)*(1-t);
+  }
+  renderer.render(scene,camera);
+})();
+
+// ─── AUTO-ADVANCE ─────────────────────────────────────────────────────────
+const AUTO_INTERVAL=12000;
+let progressStart=0, autoRunning=false;
+function resetProgress(){ progressStart=performance.now(); }
+function startAutoAdvance(){
+  if(autoRunning) return; autoRunning=true; progressStart=performance.now();
+  (function tick(ts){
+    requestAnimationFrame(tick);
+    if(!autoRunning) return;
+    const frac=Math.min((ts-progressStart)/AUTO_INTERVAL,1);
+    if(frac>=1){ progressStart=ts; goTo((current+1)%TOTAL); }
+  })();
+}
+ctrlUl.addEventListener('click',resetProgress);
+navUl.addEventListener('click',resetProgress);
+window.addEventListener('keydown',resetProgress);
+window.addEventListener('wheel',resetProgress);
+window.addEventListener('pointerup',resetProgress);
+window.addEventListener('touchend',resetProgress);
+
+// ─── PARALLAX TILT (desktop only) ─────────────────────────────────────────
+const stageEl = document.getElementById('stage');
+let mouseX=0, mouseY=0, tiltX=0, tiltY=0;
+if(!isTouchDevice){
+  window.addEventListener('mousemove', e=>{
+    mouseX=(e.clientX/window.innerWidth-0.5)*2;
+    mouseY=(e.clientY/window.innerHeight-0.5)*2;
+  });
+  window.addEventListener('mouseleave',()=>{ mouseX=0; mouseY=0; });
+  (function tiltLoop(){
+    requestAnimationFrame(tiltLoop);
+    tiltX+=(mouseX-tiltX)*0.05; tiltY+=(mouseY-tiltY)*0.05;
+    const rx=tiltY*4, ry=-tiltX*4, tx=tiltX*10, ty=tiltY*6;
+    stageEl.style.transform=`perspective(1200px) rotateX(${rx}deg) rotateY(${ry}deg) translate(${tx}px,${ty}px)`;
+  })();
+}
+</script>
 </body>
 </html>
